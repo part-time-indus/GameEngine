@@ -5,6 +5,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int);
 bool CreateMainWindow(HINSTANCE, int);
 LRESULT WindowProc(HWND, UINT, WPARAM, LPARAM);
+WCHAR ch;
 
 
 
@@ -31,7 +32,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 			switch (msg.message) {
 			case WM_QUIT:
 				done = true;
-				break;
 			}
 
 		}
@@ -101,9 +101,36 @@ bool CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 
 LRESULT WindowProc(HWND win_handle, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
+		HDC hdc;
+		PAINTSTRUCT lp;
+		RECT rect;
 		switch (msg) {
 		case WM_DESTROY:
 			PostQuitMessage(0);
+			return(0);
+		case WM_CHAR:
+			switch (wParam) {
+			case VK_ESCAPE:
+			case VK_RETURN:
+			case VK_TAB:
+			case VK_SPACE:
+			case VK_DELETE:
+			case VK_BACK:
+				MessageBeep(UINT(-1));
+				return (0);
+			default:
+				ch = (WCHAR) wParam;
+				ch = ch + '\0';
+				InvalidateRect(win_handle, NULL, false);
+				return (0);
+			
+			}
+		case WM_PAINT:
+			hdc = BeginPaint(win_handle,&lp);
+			GetClientRect(win_handle, &rect);
+			FillRect(hdc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+			TextOut(hdc, rect.right / 2, rect.bottom / 2, &ch, 1);
+			EndPaint(win_handle, &lp);
 			return(0);
 		}
 
