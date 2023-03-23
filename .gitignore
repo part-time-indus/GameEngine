@@ -35,5 +35,8 @@
 #executable, debug folder
 x64/
 
+#debug folder
+Debug/
+
 #vs folder
 .vs/
