@@ -8,8 +8,8 @@ LRESULT WindowProc(HWND, UINT, WPARAM, LPARAM);
 
 
 
-const char* CLASS_NAME = "WinMain";
-const char* WINDOW_TITLE = "Game";
+LPCWSTR CLASS_NAME = L"WinMain";
+LPCWSTR WINDOW_TITLE = L"Game";
 const int WINDOW_WIDTH = 600;
 const int WINDOW_HEIGHT = 480;
 
@@ -67,7 +67,7 @@ bool CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 	//Don't set it to null
 	window_class.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	window_class.lpszMenuName = NULL;
-	window_class.lpszClassName = (LPCWSTR) CLASS_NAME;
+	window_class.lpszClassName = CLASS_NAME;
 	window_class.hIconSm = NULL;
 
 	if (RegisterClassEx(&window_class) == 0) {
@@ -76,8 +76,8 @@ bool CreateMainWindow(HINSTANCE hInstance, int nCmdShow)
 
 	window_handle = CreateWindowEx(
 		0,
-		(LPCWSTR)CLASS_NAME,
-		(LPCWSTR) WINDOW_TITLE,
+		CLASS_NAME,
+		WINDOW_TITLE,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
