@@ -105,7 +105,7 @@ LRESULT WindowProc(HWND win_handle, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			return(0);
-	}
+		}
 
 	// NOTE: For default processing of the messages not handled here 
 	return DefWindowProcW(win_handle, msg, wParam, lParam);
